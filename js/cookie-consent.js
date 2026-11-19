@@ -1,0 +1,25 @@
+(()=>{
+  if(location.pathname.startsWith('/ustawienia'))return;
+  const key='nk_cookie_choice';
+  const css=document.createElement('style');css.textContent=`
+  .nk-cookie-banner{position:fixed;z-index:99990;inset:auto 0 0;background:#123e2d;color:#fff;border-top:4px solid #75b589;box-shadow:0 -18px 46px #071f1780;font:15px/1.5 system-ui,sans-serif;transform:translateY(110%);transition:transform .35s ease}
+  .nk-cookie-banner.is-open{transform:translateY(0)}.nk-cookie-inner{max-width:1280px;margin:auto;padding:18px 24px;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:24px}
+  .nk-cookie-copy strong{display:block;font-size:17px;letter-spacing:-.02em;margin-bottom:3px}.nk-cookie-copy p{margin:0;color:#e0eee4;font-size:14px;max-width:760px}.nk-cookie-copy a{color:#e7f5dc;text-decoration:underline;text-underline-offset:3px}
+  .nk-cookie-actions{display:flex;gap:8px;align-items:center}.nk-cookie-actions button{appearance:none;border:1px solid #c5dccb;border-radius:10px;min-height:43px;padding:9px 17px;background:#fff;color:#123e2d;font:700 14px system-ui,sans-serif;cursor:pointer}.nk-cookie-actions button:hover,.nk-cookie-actions button:focus-visible{border-color:#a7d1b0;background:#eaf4ec}.nk-cookie-actions .nk-primary{background:#ddf3dd;color:#123e2d;border-color:#ddf3dd}.nk-cookie-actions .nk-primary:hover,.nk-cookie-actions .nk-primary:focus-visible{background:#c5e9c8;color:#123e2d}
+  .nk-cookie-options{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid #53836a;padding-top:15px}.nk-cookie-option{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 16px;border:2px solid #89b79a;border-radius:12px;background:#fff;color:#173d2b}.nk-cookie-option b{display:block;font-size:14px}.nk-cookie-option small{display:block;color:#607569;font-size:12px;margin-top:3px}.nk-cookie-option input{width:22px;height:22px;accent-color:#14583b;flex:none}.nk-cookie-option .nk-always{font-size:12px;font-weight:700;color:#317251;white-space:nowrap}
+  @media(max-width:780px){.nk-cookie-inner{display:flex;flex-direction:column;align-items:stretch;gap:13px;padding:16px 18px}.nk-cookie-actions{display:grid;grid-template-columns:repeat(3,1fr)}.nk-cookie-actions button{padding:9px 7px}.nk-cookie-options{display:grid;grid-template-columns:1fr;gap:8px}.nk-cookie-copy p{font-size:13px}}
+  @media(prefers-reduced-motion:reduce){.nk-cookie-banner{transition:none}}
+  `;document.head.append(css);
+  const bar=document.createElement('aside');bar.className='nk-cookie-banner';bar.setAttribute('aria-label','Wybór prywatności');let customized=false;
+  function save(value){localStorage.setItem(key,value);bar.classList.remove('is-open');if(value==='accepted')window.dispatchEvent(new Event('nk-consent-accepted'));setTimeout(()=>bar.remove(),400)}
+  function render(){bar.innerHTML=`<div class="nk-cookie-inner"><div class="nk-cookie-copy"><strong>Twoja prywatność ma znaczenie</strong><p>Panel używa niezbędnego cookie do logowania. Za Twoją zgodą mierzymy odwiedziny strony. <a href="/polityka-cookies/">Jak to działa?</a></p></div><div class="nk-cookie-actions">${customized?'<button type="button" data-action="back">Wróć</button><button type="button" data-action="reject">Odrzuć</button><button type="button" class="nk-primary" data-action="save">Zapisz wybór</button>':'<button type="button" data-action="reject">Odrzuć</button><button type="button" data-action="customize">Dostosuj</button><button type="button" class="nk-primary" data-action="accept">Akceptuj</button>'}</div>${customized?'<div class="nk-cookie-options"><div class="nk-cookie-option"><span><b>Niezbędne</b><small>Sesja panelu administracyjnego.</small></span><span class="nk-always">Zawsze włączone</span></div><label class="nk-cookie-option"><span><b>Pomiar odwiedzin</b><small>Po włączeniu zliczamy wejścia na stronie. Odmowa wyłącza pomiar.</small></span><input type="checkbox" id="nk-measure-choice" aria-label="Zgoda na pomiar odwiedzin"></label></div>':''}</div>`;
+    bar.querySelector('[data-action=reject]')?.addEventListener('click',()=>save('rejected'));
+    bar.querySelector('[data-action=accept]')?.addEventListener('click',()=>save('accepted'));
+    bar.querySelector('[data-action=customize]')?.addEventListener('click',()=>{customized=true;render()});
+    bar.querySelector('[data-action=back]')?.addEventListener('click',()=>{customized=false;render()});
+    bar.querySelector('[data-action=save]')?.addEventListener('click',()=>save(bar.querySelector('#nk-measure-choice').checked?'accepted':'rejected'));
+  }
+  function open(){customized=false;render();document.body.append(bar);setTimeout(()=>bar.classList.add('is-open'),40)}
+  document.addEventListener('click',event=>{const link=event.target.closest('.nk-cookie-policy-control');if(!link)return;event.preventDefault();open()});
+  if(!['accepted','rejected'].includes(localStorage.getItem(key))){render();document.body.append(bar);setTimeout(()=>bar.classList.add('is-open'),document.querySelector('#site-loader')?1450:120)}
+})();

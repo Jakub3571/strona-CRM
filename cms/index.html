@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Panel CMS — Nowoczesne Korepetycje</title>
+    <link rel="stylesheet" href="cms.css" />
+  </head>
+  <body>
+    <header class="cms-top">
+      <div>
+        <strong>Panel CMS</strong>
+        <span class="cms-sub">edycja napisów na stronie — zapis bezpośrednio do <code>content.json</code></span>
+      </div>
+      <div class="cms-actions">
+        <button id="save" class="primary" type="button">Zapisz zmiany</button>
+        <a id="open-site" href="/" target="_blank" rel="noopener">Otwórz stronę ↗</a>
+      </div>
+    </header>
+    <div class="cms-layout">
+      <nav id="pages" class="cms-nav" aria-label="Strony"></nav>
+      <main class="cms-main">
+        <p id="status" class="cms-status">Ładowanie…</p>
+        <section class="cms-block">
+          <h2>Liczby na stronie głównej</h2>
+          <div class="cms-stats">
+            <label>Korepetytorzy <input id="stat-tutors" type="number" min="0" /></label>
+            <label>Uczniowie <input id="stat-students" type="number" min="0" /></label>
+            <label>Zostają na dłużej (%) <input id="stat-retention" type="number" min="0" max="100" /></label>
+          </div>
+        </section>
+        <section class="cms-block">
+          <h2>Napisy na wybranej stronie <small>(puste pole = element znika ze strony)</small></h2>
+          <div id="slots" class="cms-fields"></div>
+        </section>
+        <section class="cms-block">
+          <h2>Obrazki na wybranej stronie (opcjonalnie)</h2>
+          <div id="images" class="cms-fields"></div>
+        </section>
+        <section class="cms-block">
+          <h2>Podgląd strony <button id="reload-preview" type="button">Odśwież podgląd</button></h2>
+          <iframe id="preview" title="Podgląd strony" src="/"></iframe>
+        </section>
+        <details class="cms-block cms-fallback">
+          <summary>Awaryjnie: ręczny zapis JSON (gdy serwer nie przyjął zapisu)</summary>
+          <textarea id="output" readonly placeholder="Tu pojawi się JSON — skopiuj go do pliku content.json w głównym folderze"></textarea>
+          <button id="copy" type="button">Kopiuj JSON</button>
+        </details>
+      </main>
+    </div>
+    <script src="cms.js"></script>
+  </body>
+</html>

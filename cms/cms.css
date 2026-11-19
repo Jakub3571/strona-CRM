@@ -1,0 +1,256 @@
+:root {
+  --green: #164e38;
+  --green-dark: #0c3e2d;
+  --pale: #f5f8f4;
+  --line: #dce5dd;
+  --ink: #12291f;
+  --muted: #56635e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--pale);
+  color: var(--ink);
+  font: 15px/1.5 system-ui, "Segoe UI", sans-serif;
+}
+
+.cms-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 14px 24px;
+  background: var(--green);
+  color: #fff;
+}
+
+.cms-top strong {
+  font-size: 18px;
+}
+
+.cms-sub {
+  display: block;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.cms-sub code,
+.cms-output code {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 1px 6px;
+  border-radius: 6px;
+}
+
+.cms-output code {
+  background: var(--line);
+}
+
+.cms-actions {
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  border-radius: 10px;
+  padding: 9px 16px;
+  font: 600 14px system-ui, sans-serif;
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: var(--green);
+}
+
+button.primary {
+  background: #fff;
+  color: var(--green-dark);
+  border-color: #fff;
+}
+
+.cms-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 20px;
+  padding: 20px 24px;
+  align-items: start;
+}
+
+.cms-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: sticky;
+  top: 20px;
+}
+
+.cms-nav button {
+  text-align: left;
+  background: transparent;
+  border: 1px solid transparent;
+  font-weight: 500;
+}
+
+.cms-nav button.active {
+  background: #fff;
+  border-color: var(--green);
+  color: var(--green-dark);
+  font-weight: 700;
+}
+
+.cms-main {
+  min-width: 0;
+}
+
+.cms-status {
+  color: var(--muted);
+}
+
+.cms-block {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+}
+
+.cms-block h2 {
+  margin: 0 0 14px;
+  font-size: 16px;
+}
+
+.cms-block h2 small {
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.cms-stats {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.cms-stats label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.cms-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.cms-field {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.cms-field label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--green-dark);
+  word-break: break-all;
+}
+
+.cms-field label small {
+  display: block;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.cms-field textarea,
+.cms-field input,
+.cms-stats input {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font: 14px/1.45 system-ui, sans-serif;
+  color: var(--ink);
+}
+
+.cms-field textarea {
+  min-height: 40px;
+  resize: vertical;
+}
+
+.cms-field textarea:focus,
+.cms-field input:focus,
+.cms-stats input:focus {
+  outline: 2px solid var(--green);
+  outline-offset: -1px;
+}
+
+.cms-output textarea {
+  width: 100%;
+  min-height: 220px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  font: 12px/1.5 ui-monospace, monospace;
+}
+
+@media (max-width: 800px) {
+  .cms-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .cms-nav {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .cms-field {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+.cms-actions a {
+  display: inline-block;
+  border: 1px solid #fff;
+  background: #fff;
+  color: var(--green-dark);
+  border-radius: 10px;
+  padding: 9px 16px;
+  font: 600 14px system-ui, sans-serif;
+  text-decoration: none;
+}
+
+#preview {
+  width: 100%;
+  height: 520px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+}
+
+#reload-preview {
+  float: right;
+  font-size: 12px;
+  padding: 5px 10px;
+}
+
+.cms-fallback textarea {
+  width: 100%;
+  min-height: 180px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px;
+  font: 12px/1.5 ui-monospace, monospace;
+  margin: 10px 0;
+}

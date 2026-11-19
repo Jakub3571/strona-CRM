@@ -1,0 +1,58 @@
+/* Compact confirmation for both forms, shown only after the API accepts a lead. */
+.page-kontakt.success-shown .contact-hero{display:none}
+.page-kontakt.success-shown .contact-page-grid{display:block;margin:0 auto;padding:32px 20px 46px}
+body.success-shown .contact-form-section{display:block;max-width:none;padding:32px 20px 46px!important;background:#fff;scroll-margin-top:90px}
+.success-shown .contact-form-section .inquiry-success,
+.page-kontakt .inquiry-success{box-sizing:border-box;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.85fr);align-items:center;gap:32px;width:min(100%,900px);min-height:0;margin:0 auto;padding:32px 40px;border:1px solid #d7e9d9;border-radius:20px;background:#fff;box-shadow:0 12px 32px rgba(24,58,36,.07);outline:none;color:#103b2b}
+.inquiry-success-copy{min-width:0}
+.inquiry-success-check{display:grid;place-items:center;width:48px;height:48px;margin-bottom:16px;border-radius:50%;background:#d4f1dc;color:#065034;font-size:28px;font-weight:700;line-height:1}
+.success-shown .inquiry-success h2{max-width:440px;margin:0 0 12px;color:#103b2b;font-size:clamp(30px,3vw,42px);font-weight:800;line-height:1.12;letter-spacing:-.035em}
+.inquiry-success-message{max-width:410px;margin:0 0 22px;color:#526a5c;font-size:16px;line-height:1.5}
+.inquiry-success-button{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 20px;border-radius:10px;background:#075d3d;color:#fff;font-size:15px;font-weight:750;text-align:center;text-decoration:none}
+.inquiry-success-button:hover{background:#034b31;color:#fff}
+.inquiry-success-button:focus-visible{outline:3px solid #75ad86;outline-offset:3px}
+.inquiry-success-visual{display:flex;align-items:center;justify-content:center;min-width:0;border-radius:42% 58% 49% 51%;background:#edf7ee}
+.inquiry-success-visual img{display:block;width:min(100%,350px);height:auto;max-height:265px;object-fit:contain}
+@media(max-width:700px){
+  .page-kontakt.success-shown .contact-page-grid,body.success-shown .contact-form-section{padding:24px 16px 36px!important}
+  .success-shown .contact-form-section .inquiry-success,.page-kontakt .inquiry-success{grid-template-columns:1fr;gap:18px;padding:26px 24px;border-radius:18px}
+  .inquiry-success-check{width:44px;height:44px;margin-bottom:12px;font-size:25px}
+  .success-shown .inquiry-success h2{font-size:clamp(29px,7vw,38px)}
+  .inquiry-success-message{margin-bottom:18px}
+  .inquiry-success-visual{width:min(100%,330px);margin-inline:auto}
+  .inquiry-success-visual img{max-height:180px}
+}
+@media(max-width:420px){
+  .success-shown .contact-form-section .inquiry-success,.page-kontakt .inquiry-success{padding:23px 20px}
+  .inquiry-success-button{width:100%}
+  .inquiry-success-visual img{max-height:155px}
+}
+
+/* Dedicated full-width thank-you section. Other pages retain their existing layout. */
+.page-thank-you main{display:block;min-height:0}
+.page-thank-you .contact-page-grid{display:block;width:100%;max-width:none;margin:0;padding:0!important}
+.page-thank-you .inquiry-success{display:grid;grid-template-columns:1fr 1fr;gap:0;width:100%;max-width:none;min-height:510px;margin:0;padding:0;border:0;border-radius:0;box-shadow:none}
+.page-thank-you .inquiry-success-copy{align-self:center;width:100%;padding:56px clamp(30px,4vw,80px) 56px max(32px,calc((100vw - 1280px)/2))}
+.page-thank-you .inquiry-success-check{width:56px;height:56px;margin-bottom:22px;font-size:32px}
+.page-thank-you .inquiry-success h1{max-width:540px;margin:0 0 22px;color:#103b2b;font-size:clamp(38px,3.5vw,58px);font-weight:800;line-height:1.09;letter-spacing:-.045em}
+.page-thank-you .inquiry-success-message{max-width:520px;margin-bottom:28px;font-size:clamp(17px,1.3vw,20px);line-height:1.55}
+.page-thank-you .inquiry-success-button{min-height:52px;padding:12px 25px;font-size:16px}
+.page-thank-you .inquiry-success-visual{align-self:stretch;width:100%;min-height:510px;margin:0;overflow:hidden;border-radius:0;background:radial-gradient(ellipse at 53% 55%,#e4f5e7 0%,#edf8ee 54%,#f7fbf7 100%)}
+.page-thank-you .inquiry-success-visual img{width:min(92%,720px);max-height:490px;height:auto;object-fit:contain}
+.page-thank-you .page-footer{margin-top:0}
+@media(max-width:800px){
+  .page-thank-you .inquiry-success{grid-template-columns:1fr;min-height:0}
+  .page-thank-you .inquiry-success-copy{padding:48px 28px 38px}
+  .page-thank-you .inquiry-success h1{font-size:clamp(36px,6.5vw,48px)}
+  .page-thank-you .inquiry-success-visual{min-height:310px;padding:22px}
+  .page-thank-you .inquiry-success-visual img{width:min(100%,500px);max-height:330px}
+}
+@media(max-width:480px){
+  .page-thank-you .inquiry-success-copy{padding:38px 22px 30px}
+  .page-thank-you .inquiry-success-check{width:48px;height:48px;margin-bottom:18px;font-size:27px}
+  .page-thank-you .inquiry-success h1{font-size:clamp(34px,9vw,42px)}
+  .page-thank-you .inquiry-success-message{font-size:17px;margin-bottom:22px}
+  .page-thank-you .inquiry-success-button{width:auto}
+  .page-thank-you .inquiry-success-visual{min-height:255px;padding:12px}
+  .page-thank-you .inquiry-success-visual img{max-height:270px}
+}
