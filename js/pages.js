@@ -1,6 +1,6 @@
-// Brak API po stronie strony: formularz korzysta z wbudowanego fallbacku
-// „przygotuj wiadomość i skopiuj” (poniżej), a nie z wysyłki na serwer.
-window.NK_LIVE_FORM = false;
+// Formularz „na żywo”: POST JSON na /api/contact (aplikacja Django), po sukcesie /dziekujemy/.
+// Fallback „skopiuj wiadomość” zostaje w kodzie poniżej (gdy NK_LIVE_FORM = false).
+window.NK_LIVE_FORM = true;
 (() => {
   'use strict';
   const isSubpage = document.body.classList.contains('subpage');
@@ -147,8 +147,48 @@ window.NK_LIVE_FORM = false;
     phone.setCustomValidity(phone.value.trim() ? '' : 'Podaj numer telefonu.');
   }
   email?.addEventListener('input',validateContact); phone.addEventListener('input',validateContact);
+  if (window.NK_LIVE_FORM) {
+    let sending = false;
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      if (sending || !form.reportValidity()) return;
+      const status = form.querySelector("#live-form-status");
+      const body = { ...Object.fromEntries(new FormData(form)), ...(window.NK_ATTRIBUTION || {}) };
+      if (String(body.name || "").trim().length < 2) {
+        status.textContent = "Podaj imię (co najmniej 2 znaki).";
+        form.querySelector('[name="name"]')?.focus();
+        return;
+      }
+      if (!String(body.phone || "").trim()) {
+        status.textContent = "Podaj numer telefonu.";
+        return;
+      }
+      const button = form.querySelector('[type="submit"]');
+      sending = true;
+      button.disabled = true;
+      form.setAttribute("aria-busy", "true");
+      status.textContent = "Wysyłanie zgłoszenia…";
+      try {
+        const response = await fetch("/api/contact", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        const result = await response.json();
+        if (!response.ok || result.ok !== true)
+          throw new Error(result.error || "Nie udało się wysłać zgłoszenia. Spróbuj ponownie.");
+        window.location.assign("/dziekujemy/");
+      } catch (error) {
+        status.textContent = error.message || "Nie udało się wysłać. Spróbuj ponownie.";
+      } finally {
+        sending = false;
+        button.disabled = false;
+        form.removeAttribute("aria-busy");
+      }
+    });
+  }
   if (window.NK_LIVE_FORM) return;
-  form.addEventListener('submit', e => {
+  form.addEventListener("submit", (e) => {
     e.preventDefault(); validateContact();
     if(!form.reportValidity()) return;
     const contact = [email?.value.trim() ? `E-mail: ${email.value.trim()}` : '', phone.value.trim() ? `Telefon: ${phone.value.trim()}` : ''].filter(Boolean).join('\n');
