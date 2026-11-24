@@ -141,7 +141,11 @@ function selectPage(url) {
     slotsBox.append(Object.assign(document.createElement("p"), { textContent: "Nie udało się pobrać tej strony." }));
     return;
   }
-  for (const [key, value] of Object.entries(page.slots)) slotsBox.append(field(key, value, false));
+for (const [key, value] of Object.entries(page.slots)) {
+    const f = field(key, value, false);
+    if ((page.statics?.[key] ?? "") !== value) f.classList.add("cms-changed");
+    slotsBox.append(f);
+  }
   for (const [key, value] of Object.entries(page.images)) imagesBox.append(field(key, value, true));
 }
 
@@ -166,6 +170,19 @@ function buildJson() {
 $("#save").addEventListener("click", async () => {
   const data = buildJson();
   const text = JSON.stringify(data, null, 2);
+  const hidden = [];
+  for (const page of pages.values()) {
+    for (const [key, value] of Object.entries(page.slots)) {
+      if (String(value).trim() === "" && (page.statics?.[key] ?? "").trim() !== "") hidden.push(key);
+    }
+  }
+  if (hidden.length && !confirm(`${hidden.length} pól jest pustych, choć mają tekst domyślny — puste pole CHOWA element na stronie.\nPrzykłady: ${hidden.slice(0, 5).join(", ")}${hidden.length > 5 ? "…" : ""}\n\nZapisać mimo to?`)) {
+    status("Zapis anulowany — puste pola chowają elementy ze strony.");
+    return;
+  }
+  try {
+    localStorage.setItem("nk-cms-backup", JSON.stringify({ at: Date.now(), content }));
+  } catch (_) {}
   try {
     const r = await fetch("/cms/save", {
       method: "POST",
@@ -198,6 +215,30 @@ $("#copy").addEventListener("click", async () => {
 
 $("#reload-preview").addEventListener("click", () => {
   $("#preview").contentWindow.location.reload();
+});
+
+$("#restore").addEventListener("click", () => {
+  let raw = null;
+  try { raw = localStorage.getItem("nk-cms-backup"); } catch (_) {}
+  if (!raw) { status("Brak lokalnej kopii — najpierw kliknij „Zapisz zmiany”."); return; }
+  try {
+    const backup = JSON.parse(raw);
+    content = backup.content || content;
+    content.copy = content.copy || {};
+    content.stats = content.stats || {};
+    content.images = content.images || {};
+    for (const page of pages.values()) {
+      if (!page.slots) continue;
+      for (const key of Object.keys(page.slots)) page.slots[key] = content.copy[key] ?? page.statics[key] ?? "";
+    }
+    $("#stat-tutors").value = content.stats.tutors ?? "";
+    $("#stat-students").value = content.stats.students ?? "";
+    $("#stat-retention").value = content.stats.retention ?? "";
+    selectPage(current);
+    status("Przywrócono lokalną kopię sprzed ostatniego zapisu — kliknij „Zapisz zmiany”, aby utrwalić ją na serwerze.");
+  } catch (_) {
+    status("Kopia lokalna jest uszkodzona — nie przywrócono.");
+  }
 });
 
 load();

@@ -254,3 +254,5 @@ button.primary {
   font: 12px/1.5 ui-monospace, monospace;
   margin: 10px 0;
 }
+.cms-field.cms-changed textarea,.cms-field.cms-changed input{border-color:#d9a400;background:#fff8e1}
+.cms-field.cms-changed>label::after{content:"zmienione";margin-left:8px;font-size:11px;font-weight:700;color:#9a6a00}

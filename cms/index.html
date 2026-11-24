@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
     <title>Panel CMS — Nowoczesne Korepetycje</title>
-    <link rel="stylesheet" href="cms.css" />
+     <link rel="stylesheet" href="cms.css?v=20261125" />
   </head>
   <body>
     <header class="cms-top">
@@ -14,7 +14,8 @@
         <span class="cms-sub">edycja napisów na stronie — zapis bezpośrednio do <code>content.json</code></span>
       </div>
       <div class="cms-actions">
-        <button id="save" class="primary" type="button">Zapisz zmiany</button>
+<button id="save" class="primary" type="button">Zapisz zmiany</button>
+        <button id="restore" type="button" title="Wraca do wersji sprzed ostatniego zapisu (kopia lokalna w przeglądarce)">Przywróć ostatnią kopię</button>
         <a id="open-site" href="/" target="_blank" rel="noopener">Otwórz stronę ↗</a>
       </div>
     </header>
@@ -49,6 +50,6 @@
         </details>
       </main>
     </div>
-    <script src="cms.js"></script>
+    <script src="cms.js?v=20261125"></script>
   </body>
 </html>
