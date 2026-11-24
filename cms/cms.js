@@ -129,8 +129,6 @@ function selectPage(url) {
   current = url;
   $$("#pages button").forEach((b) => b.classList.toggle("active", b.dataset.url === url));
   $("#open-site").setAttribute("href", url);
-  const preview = $("#preview");
-  if (preview.getAttribute("src") !== url) preview.src = url;
   const page = pages.get(url);
   const slotsBox = $("#slots");
   const imagesBox = $("#images");
@@ -147,7 +145,58 @@ for (const [key, value] of Object.entries(page.slots)) {
     slotsBox.append(f);
   }
   for (const [key, value] of Object.entries(page.images)) imagesBox.append(field(key, value, true));
+  renderChanges();
 }
+
+function renderChanges() {
+  saveFields();
+  const box = $("#changes-list");
+  if (!box) return;
+  const rows = [];
+  for (const page of pages.values()) {
+    if (!page.slots) continue;
+    for (const [key, value] of Object.entries(page.slots)) {
+      const old = content.copy[key] ?? page.statics?.[key] ?? "";
+      if (String(value) !== String(old)) rows.push({ page: page.label, key, old: String(old), value: String(value) });
+    }
+  }
+  for (const [key, id] of [["tutors", "#stat-tutors"], ["students", "#stat-students"], ["retention", "#stat-retention"]]) {
+    const v = $(id).value.trim();
+    const old = content.stats?.[key] === undefined ? "" : String(content.stats[key]);
+    if (v !== old) rows.push({ page: "Liczby na stronie głównej", key, old, value: v });
+  }
+  box.replaceChildren();
+  if (!rows.length) {
+    box.append(Object.assign(document.createElement("p"), { className: "cms-changes-empty", textContent: "Brak zmian — edytuj pola powyżej." }));
+    return;
+  }
+  for (const r of rows) {
+    const div = document.createElement("div");
+    div.className = "cms-change";
+    const head = document.createElement("div");
+    head.className = "cms-change-key";
+    head.textContent = `${r.page} — ${r.key}`;
+    const body = document.createElement("div");
+    body.className = "cms-change-body";
+    const oldEl = document.createElement("span");
+    oldEl.className = "cms-old";
+    oldEl.textContent = r.old === "" ? "(puste — element zniknie)" : r.old;
+    const arrow = document.createElement("span");
+    arrow.className = "cms-arrow";
+    arrow.textContent = " → ";
+    const newEl = document.createElement("span");
+    newEl.className = "cms-new";
+    newEl.textContent = r.value === "" ? "(puste — element zniknie)" : r.value;
+    body.append(oldEl, arrow, newEl);
+    div.append(head, body);
+    box.append(div);
+  }
+}
+
+["#slots", "#images", ".cms-stats"].forEach((sel) => {
+  const box = $(sel);
+  if (box) box.addEventListener("input", renderChanges);
+});
 
 function buildJson() {
   saveFields();
@@ -192,8 +241,8 @@ $("#save").addEventListener("click", async () => {
     const res = await r.json().catch(() => ({}));
     if (!r.ok || res.ok !== true) throw new Error(res.error || "błąd zapisu");
     content = data;
-    status("Zapisano ✔ Podgląd poniżej pokazuje już nową wersję strony.");
-    $("#preview").contentWindow.location.reload();
+    status("Zapisano ✔");
+    renderChanges();
   } catch (e) {
     status(`Nie udało się zapisać przez serwer (${e.message}). Skorzystaj z awaryjnego JSON na dole.`);
     $("#output").value = text;
@@ -213,9 +262,7 @@ $("#copy").addEventListener("click", async () => {
   }
 });
 
-$("#reload-preview").addEventListener("click", () => {
-  $("#preview").contentWindow.location.reload();
-});
+
 
 $("#restore").addEventListener("click", () => {
   let raw = null;

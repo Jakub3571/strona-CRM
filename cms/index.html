@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
     <title>Panel CMS — Nowoczesne Korepetycje</title>
-     <link rel="stylesheet" href="cms.css?v=20261125" />
+     <link rel="stylesheet" href="cms.css?v=20261126" />
   </head>
   <body>
     <header class="cms-top">
@@ -39,9 +39,9 @@
           <h2>Obrazki na wybranej stronie (opcjonalnie)</h2>
           <div id="images" class="cms-fields"></div>
         </section>
-        <section class="cms-block">
-          <h2>Podgląd strony <button id="reload-preview" type="button">Odśwież podgląd</button></h2>
-          <iframe id="preview" title="Podgląd strony" src="/"></iframe>
+ <section class="cms-block">
+          <h2>Podgląd zmian przed zapisem <small>(stare przekreślone, nowe zielone — „Zapisz zmiany” to zastosuje)</small></h2>
+          <div id="changes-list" class="cms-changes"><p class="cms-changes-empty">Brak zmian — edytuj pola powyżej.</p></div>
         </section>
         <details class="cms-block cms-fallback">
           <summary>Awaryjnie: ręczny zapis JSON (gdy serwer nie przyjął zapisu)</summary>
@@ -50,6 +50,6 @@
         </details>
       </main>
     </div>
-    <script src="cms.js?v=20261125"></script>
+    <script src="cms.js?v=20261126"></script>
   </body>
 </html>

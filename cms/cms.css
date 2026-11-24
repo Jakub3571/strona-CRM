@@ -249,10 +249,18 @@ button.primary {
   width: 100%;
   min-height: 180px;
   border: 1px solid var(--line);
-  border-radius: 10px;
+ border-radius: 10px;
   padding: 12px;
   font: 12px/1.5 ui-monospace, monospace;
   margin: 10px 0;
 }
+.cms-changes{display:flex;flex-direction:column;gap:8px;max-height:420px;overflow:auto}
+.cms-changes-empty{color:#777;font-size:13px;margin:0}
+.cms-change{border:1px solid #e3e9e4;border-radius:10px;padding:8px 12px;background:#fbfdfb}
+.cms-change-key{font:11px/1.4 ui-monospace,monospace;color:#5c7164;margin-bottom:4px;word-break:break-all}
+.cms-change-body{font-size:13px;line-height:1.5}
+.cms-old{text-decoration:line-through;color:#a33}
+.cms-arrow{color:#888;margin:0 6px}
+.cms-new{color:#1a7f37;font-weight:600}
 .cms-field.cms-changed textarea,.cms-field.cms-changed input{border-color:#d9a400;background:#fff8e1}
 .cms-field.cms-changed>label::after{content:"zmienione";margin-left:8px;font-size:11px;font-weight:700;color:#9a6a00}
