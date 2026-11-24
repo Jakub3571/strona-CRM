@@ -129,7 +129,7 @@ window.NK_LIVE_FORM = true;
   if (!form) return;
   const subject = q('#inquiry-subject'), level = q('#inquiry-level');
   const email = q('#inquiry-email'), phone = q('#inquiry-phone');
-  const classes = ["1 kl. SP", "2 kl. SP", "3 kl. SP", "1 kl. SP", "2 kl. SP", "3 kl. SP", "4 kl. SP", "5 kl. SP", "6 kl. SP", "7 kl. SP", "8 kl. SP", "1 LO", "2 LO", "3 LO", "4 LO", "1 technikum", "2 technikum", "3 technikum", "4 technikum", "5 technikum", "Dorosły"];
+const classes = ["1 kl. SP", "2 kl. SP", "3 kl. SP", "4 kl. SP", "5 kl. SP", "6 kl. SP", "7 kl. SP", "8 kl. SP", "1 LO", "2 LO", "3 LO", "4 LO", "1 technikum", "2 technikum", "3 technikum", "4 technikum", "5 technikum", "Dorosły"];
   function updateLevels() {
     const oldValue = level.value;
     const options = classes;
