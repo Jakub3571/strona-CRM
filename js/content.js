@@ -34,23 +34,11 @@
     ["students", stats.students],
     ["retention", stats.retention],
   ]) {
+    if (value === undefined || value === null || value === "") continue;
     document.querySelectorAll(`[data-stat="${key}"]`).forEach((el) => {
-      const p = el.parentElement && el.parentElement.tagName === "P" ? el.parentElement : null;
-      if (value === undefined || value === null || value === "") {
-        el.style.display = "none";
-        if (p) p.style.display = "none";
-        return;
-      }
-      el.style.display = "";
-      if (p) p.style.display = "";
       el.dataset.count = String(value);
       el.textContent = `${value}${el.dataset.suffix || ""}`;
     });
-  }
-  const ret = document.querySelector('[data-stat="retention"]');
-  if (ret) {
-    const box = ret.closest(".hero-trust-stat");
-    if (box) box.style.display = ret.style.display === "none" ? "none" : "";
   }
 
   const images = content.images || {};
