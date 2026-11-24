@@ -769,3 +769,6 @@ body{background:#fff} .ui-icon{width:28px;height:28px;flex:none;display:block}.s
 @media(prefers-reduced-motion:reduce){
  .page-jak-uczymy .founders-intro-copy,.page-jak-uczymy .founders-intro-art,.page-jak-uczymy .how-stage,.page-jak-uczymy .how-stage img,.page-jak-uczymy .how-stage .lesson-number,.page-jak-uczymy .how-stage h3,.page-jak-uczymy .how-stage p,.page-jak-uczymy .how-lesson-art,.page-jak-uczymy .how-lesson-copy,.page-jak-uczymy .how-lesson-copy li,.page-jak-uczymy .rhythm-panel{opacity:1!important;transform:none!important;transition:none!important;animation:none!important}
 }
+
+.page-polityka-prywatnosci .privacy-content{grid-template-columns:minmax(0,880px);justify-content:center;column-gap:0}
+.page-polityka-prywatnosci .privacy-lead{margin-bottom:28px}

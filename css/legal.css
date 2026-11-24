@@ -24,3 +24,10 @@
 @media(max-width:790px){.page-polityka-prywatnosci .legal-top{padding:68px 24px 58px}.page-polityka-prywatnosci .legal-cols{display:block;padding:38px 22px 0}.page-polityka-prywatnosci .legal-menu{position:static;display:flex;flex-direction:row;overflow-x:auto;white-space:nowrap;border-left:0;border-bottom:1px solid #dce8df;padding:0 0 12px;margin-bottom:22px;gap:7px}.page-polityka-prywatnosci .legal-menu::before{display:none}.page-polityka-prywatnosci .legal-menu a{margin:0;padding:9px 12px;background:#f2f8f3;border-radius:8px;border:0}.page-polityka-prywatnosci .legal-copy section{padding:28px 0 34px}.page-polityka-prywatnosci .legal-copy p{font-size:15px}.page-polityka-prywatnosci .legal-meta{padding:20px}}
 
 .page-polityka-prywatnosci .nk-cookie-policy-control{border:0;border-radius:10px;background:#13583a;color:#fff;font:700 15px system-ui,sans-serif;padding:13px 18px;cursor:pointer;margin:0 0 20px}.page-polityka-prywatnosci .nk-cookie-policy-control:hover{background:#0c462e}
+
+
+/* STARE (koniec pliku) */
+.page-polityka-prywatnosci .nk-cookie-policy-control:hover{background:#0c462e}
+/* NOWE — dopisz pod spodem */
+.page-polityka-prywatnosci .nk-cookie-policy-control:hover{background:#0c462e}
+.privacy-page .legal-cols{max-width:1060px;margin-inline:auto}
