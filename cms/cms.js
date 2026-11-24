@@ -13,6 +13,9 @@ const PAGES = [
   ["Fizyka", "/fizyka/"],
   ["Język polski", "/polski/"],
   ["Geografia", "/geografia/"],
+  ["Język niemiecki", "/niemiecki/"],
+  ["Informatyka", "/informatyka/"],
+  ["Filozofia", "/filozofia/"],
   ["Cennik", "/cennik/"],
   ["Jak uczymy", "/jak-uczymy/"],
   ["O nas", "/o-nas/"],
@@ -57,7 +60,7 @@ async function load() {
           .filter((el) => !el.hasAttribute("data-stat")) // liczby edytujemy w sekcji "Liczby na stronie głównej"
           .forEach((el) => {
             const key = el.getAttribute("data-nk-slot");
-            statics[key] = el.textContent.trim();
+            statics[key] = (el.tagName === "INPUT" || el.tagName === "TEXTAREA") ? el.placeholder : el.textContent.trim();
             slots[key] = content.copy[key] ?? statics[key];
           });
         const images = {};

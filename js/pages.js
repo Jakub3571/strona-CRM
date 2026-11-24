@@ -154,8 +154,10 @@ window.NK_LIVE_FORM = true;
       if (sending || !form.reportValidity()) return;
       const status = form.querySelector("#live-form-status");
       const body = { ...Object.fromEntries(new FormData(form)), ...(window.NK_ATTRIBUTION || {}) };
-      if (String(body.name || "").trim().length < 2) {
-        status.textContent = "Podaj imię (co najmniej 2 znaki).";
+      const slowa = String(body.name || "").trim().split(/\s+/).filter(Boolean);
+      const litery = (s) => (s.match(/[a-ząćęłńóśźżA-ZĄĆĘŁŃÓŚŹŻ]/g) || []).length;
+      if (slova.length < 2 || slowa.some((s) => litery(s) < 2)) {
+        status.textContent = "Podaj imię i nazwisko.";
         form.querySelector('[name="name"]')?.focus();
         return;
       }

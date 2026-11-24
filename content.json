@@ -5,7 +5,9 @@
     "home-a3": "↗ Napisz do nas"
   },
   "stats": {
-    "retention": 93
+    "retention": 93,
+    "tutors": 50,
+    "students": 550
   },
   "images": {
     "media:angielski:img-001": "/assets/brand-logo-full.png",

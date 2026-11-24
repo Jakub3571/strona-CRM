@@ -14,6 +14,11 @@
     const val = copy[key];
     if (val === undefined) return;
     if (!String(val).trim()) {
+    const isField = el.tagName === "INPUT" || el.tagName === "TEXTAREA"; // slot na polu = placeholder
+    if (isField) {
+      el.placeholder = val;
+      return;
+    }
       // puste pole = element znika, ale tylko gdy ma tekst (nie chowamy przyciskow z samymi ikonami)
       if (el.textContent.trim()) el.style.display = "none";
       return;
